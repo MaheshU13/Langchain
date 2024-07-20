@@ -1,6 +1,10 @@
 import streamlit as st
 import textwrap
+from google.generativeai import GenerativeModel
+
 import google.generativeai as genai
+from google.generativeai import GenerativeModel
+
 
 from IPython.display import Markdown
 

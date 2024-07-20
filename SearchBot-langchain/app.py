@@ -48,3 +48,18 @@ if submit:
     response=get_gemini_response(input)
     st.subheader("The Response is")
     st.write(response)
+if submit:
+    if input_text.strip():  # Check if the input is not empty or just whitespace
+        response = get_gemini_response(input_text)
+        st.subheader("The Response is")
+        st.write(response)
+    else:
+        st.warning("Please enter a question before submitting.")
+
+logo_path = r"logo4.jpg"  
+
+col1, col2 = st.columns([1, 5])
+with col1:
+    st.image(logo_path, width=50)
+with col2:
+    st.markdown(" © 2024 Mahesh U")

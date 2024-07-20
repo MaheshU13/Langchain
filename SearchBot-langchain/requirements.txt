@@ -3,5 +3,5 @@ google-generativeai
 python-dotenv
 pathlib
 textwrap
-google.generativeai
+google_generativeai
 IPython

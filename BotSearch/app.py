@@ -41,11 +41,4 @@ if submit:
         st.write(response)
     else:
         st.warning("Please enter a question before submitting.")
-
-# Display logo and copyright
-logo_path = "logo4.jpg"
-col1, col2 = st.columns([1, 5])
-with col1:
-    st.image(logo_path, width=50)
-with col2:
-    st.markdown("© 2024 Mahesh U")
+st.markdown("© 2024 Mahesh U")

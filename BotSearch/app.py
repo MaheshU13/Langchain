@@ -53,7 +53,7 @@ if submit:
 
 
 # Display logo and copyright
-logo_path = "logo4.jpg"
+logo_path = "https://github.com/MaheshU13/Langchain/blob/main/BotSearch/logo4.jpg"
 col1, col2 = st.columns([1, 5])
 with col1:
     st.image(logo_path, width=50)

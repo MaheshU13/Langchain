@@ -1,59 +1,49 @@
-# Q&A Chatbot
-#from langchain.llms import OpenAI
-
 from dotenv import load_dotenv
+import streamlit as st
+import os
+import textwrap
+import google.generativeai as genai
+from IPython.display import Markdown
 
 load_dotenv()  # take environment variables from .env.
 
-import streamlit as st
-import os
-import pathlib
-import textwrap
-
-import google.generativeai as genai
-
-from IPython.display import display
-from IPython.display import Markdown
-
-
 def to_markdown(text):
-  text = text.replace('•', '  *')
-  return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
+    text = text.replace('•', '  *')
+    return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
-os.getenv("GOOGLE_API_KEY")
+# Configure the API key for Google Generative AI
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-## Function to load OpenAI model and get respones
-
+# Function to load OpenAI model and get responses
 def get_gemini_response(question):
-    model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(question)
-    return response.text
+    try:
+        model = genai.GenerativeModel('gemini-pro')
+        response = model.generate_content(question)
+        if response and hasattr(response, 'text') and response.text:
+            return response.text
+        else:
+            return "No valid response received."
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
 
-##initialize our streamlit app
-
+# Initialize Streamlit app
 st.set_page_config(page_title="Q&A BOT")
-
 st.header("Question Answering Bot")
 
-input=st.text_input("Input: ",key="input")
+input_text = st.text_input("Input: ", key="input")
+submit = st.button("Ask the question")
 
-
-submit=st.button("Ask the question")
-
-## If ask button is clicked
-
+# If ask button is clicked
 if submit:
-    if input.strip():  # Check if the input is not empty or just whitespace
-        response = get_gemini_response(input)
+    if input_text.strip():  # Check if the input is not empty or just whitespace
+        response = get_gemini_response(input_text)
         st.subheader("The Response is")
         st.write(response)
     else:
         st.warning("Please enter a question before submitting.")
 
-
 # Display logo and copyright
-logo_path = "https://github.com/MaheshU13/Langchain/blob/main/BotSearch/logo4.jpg"
+logo_path = "logo4.jpg"
 col1, col2 = st.columns([1, 5])
 with col1:
     st.image(logo_path, width=50)
